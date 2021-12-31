@@ -1,10 +1,12 @@
 pragma solidity ^0.6.6;
 
 import "./aave/FlashLoanReceiverBaseV2.sol";
+// Importing the flashloan lenders from AAVE
 import "../../interfaces/v2/ILendingPoolAddressesProviderV2.sol";
 import "../../interfaces/v2/ILendingPoolV2.sol";
 
 contract FlashloanV2 is FlashLoanReceiverBaseV2, Withdrawable {
+    // _addressProvider is gonna be the address for the lending pool
     constructor(address _addressProvider)
         public
         FlashLoanReceiverBaseV2(_addressProvider)
@@ -76,6 +78,8 @@ contract FlashloanV2 is FlashLoanReceiverBaseV2, Withdrawable {
     /*
      *  Flash multiple assets
      */
+
+    //
     function flashloan(address[] memory assets, uint256[] memory amounts)
         public
         onlyOwner
@@ -86,6 +90,8 @@ contract FlashloanV2 is FlashLoanReceiverBaseV2, Withdrawable {
     /*
      *  Flash loan 100000000000000000 wei (0.1 ether) worth of `_asset`
      */
+
+    // masking the loan, getting the funds and repaying the funds
     function flashloan(address _asset) public onlyOwner {
         bytes memory data = "";
         uint256 amount = 100000000000000000;

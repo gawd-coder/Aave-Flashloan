@@ -10,12 +10,16 @@ def main():
 
 def get_weth():
     """
-    Mints WETH by depositing ETH.
+    Mints WETH by depositing ETH
     """
     acct = accounts.add(
         config["wallets"]["from_key"]
     )  # add your keystore ID as an argument to this call
+
+    # adding the network i.e. Kovan
     weth = interface.WethInterface(config["networks"][network.show_active()]["weth"])
+
+    # depositing 1 testnet ETH to get 1 WETH
     tx = weth.deposit({"from": acct, "value": 1000000000000000000})
     print("Received 1 WETH")
     return tx
